@@ -31,11 +31,17 @@ function addTask() {
         });
         li.appendChild(statusSelect);
 
+        let editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", function () {
+            editTask(li);
+        });
+        li.appendChild(editButton);
+
         let removeBtn = document.createElement("span");
         removeBtn.innerHTML = `<i class="fa-solid fa-x" onclick="removeTask(this)"></i>`;
         li.appendChild(removeBtn);
 
-       
         const selectedPriority = priority.value;
         li.classList.add(selectedPriority);
 
@@ -60,6 +66,16 @@ function updateStatus(selectElement) {
     saveData();
 }
 
+function editTask(editButton) {
+    const listItem = editButton.parentElement.parentElement;
+    const taskContent = listItem.querySelector(".task-content");
+    const newText = prompt("Edit task:", taskContent.querySelector(".text").textContent);
+
+    if (newText !== null && newText !== "") {
+        taskContent.querySelector(".text").textContent = newText;
+        saveData();
+    }
+}
 function removeTask(iconElement) {
     const listItem = iconElement.parentElement.parentElement;
     listItem.remove();
@@ -91,8 +107,23 @@ function filterTasks() {
     });
 }
 
+function searchTasks() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const allTasks = document.querySelectorAll("#list-container li");
+
+    allTasks.forEach(task => {
+        const taskText = task.textContent.toLowerCase();
+        if (taskText.includes(searchInput)) {
+            task.style.display = "list-item";
+        } else {
+            task.style.display = "none";
+        }
+    });
+}
+
 document.getElementById("filterStatus").addEventListener("change", filterTasks);
 document.getElementById("filterPriority").addEventListener("change", filterTasks);
+document.getElementById("searchInput").addEventListener("input", searchTasks);
 
 listContainer.addEventListener("click", function (e) {
     if (e.target.tagName === "I" && e.target.classList.contains("fa-x")) {
@@ -103,3 +134,4 @@ listContainer.addEventListener("click", function (e) {
 window.onload = function () {
     updateCounts();
 };
+

@@ -20,7 +20,7 @@ header{
 }
 .surch-container{
    
-    height: 350px;
+    height: 450PX;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -79,30 +79,40 @@ label{
     font-size: 18px;
     font-weight: 600;
     color: white;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 
 .filter-container{
     width: 100%;
-  
     display: flex;
     justify-content: space-around;
-    background-color: #0d0d0d;
+    /* background-color:#1E6F9F; */
     align-items: center;
+    margin: 25px 0px;
+    border-radius: 15px;
 
 }
 .filter-container select{
-    background-color: #262626;
+    background-color: #1E6F9F;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 10px;
+    width: 150px;
+}
+.filter-container label{
+    color: #1E6F9F;
+}
+#searchInput{
+    margin-left:27px;
+    border: none;
+    height: 35px;
 }
 
 .maincontainr{
     
     width: 60%;
-    margin-top: 100px;
+    margin-top: 0px;
 }
 
 .To-do{
@@ -255,3 +265,16 @@ li.low {
 
 
 
+/* Add styles for the edit button */
+.edit-btn button {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn button:hover {
+    background-color: #45a049;
+}

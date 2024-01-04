@@ -14,6 +14,7 @@
 
     <div class="surch-container">
         <form id="form">
+           
             <input type="text" name="search" id="inputbox" placeholder="Enter Your To-do List Task" required>
             <button type="button" onclick="addTask()">Add <i class="fa-solid fa-circle-plus"></i></button>
             <div class="dateandpriotity">
@@ -30,26 +31,29 @@
                     </select>
                 </div>
             </div>
-        </form>
-
+           
        
-        <div class="filter-container">
-            <label for="filterStatus">Filter by Status:</label>
-            <select id="filterStatus" onchange="filterTasks()">
-                <option value="all">All</option>
-                <option value="todo">To-do</option>
-                <option value="inprogress">In Progress</option>
-                <option value="done">Done</option>
-            </select>
 
-            <label for="filterPriority">Filter by Priority:</label>
-            <select id="filterPriority" onchange="filterTasks()">
-                <option value="all">All</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-            </select>
-        </div>
+        <!-- Filter options -->
+            <div class="filter-container">
+                <label for="filterStatus">Filter by Status:</label>
+                <select id="filterStatus" onchange="filterTasks()">
+                    <option value="all">All</option>
+                    <option value="todo">To-do</option>
+                    <option value="inprogress">In Progress</option>
+                    <option value="done">Done</option>
+                </select>
+
+                <label for="filterPriority">Filter by Priority:</label>
+                <select id="filterPriority" onchange="filterTasks()">
+                    <option value="all">All</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <input type="text" name="search" id="searchInput" placeholder="Search tasks" oninput="searchTasks()">
+        </form>
     </div>
 
     <div class="maincontainr">
@@ -64,7 +68,7 @@
             <img src="Empty.png" alt="empty" id="img">
             <div class="todo-list" id="todolist">
                 <ul id="list-container">
-                  
+                    <!-- Tasks will be dynamically added here -->
                 </ul>
             </div>
             <div class="To-do">
