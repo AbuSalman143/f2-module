@@ -19,8 +19,11 @@ header{
     width: 100%;
 }
 .surch-container{
+   
+    height: 350px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     margin-top: -20px;
    
@@ -37,7 +40,6 @@ header{
 
 .surch-container button{
     height: 50px;
-    /* width: 100px; */
     padding: 15px;
     color: white;
     font-weight: 600;
@@ -46,7 +48,7 @@ header{
     border-radius: 10px;
 }
 .dateandpriotity{
-    /* border: 2px solid; */
+
     width: 60%;
     margin-top: 15px;
     display: flex;
@@ -61,7 +63,7 @@ header{
 }
 #priority{
     width: 200px;
-    /* height: 30px; */
+
     padding: 10px;
     border-radius: 10px;
     color: white;
@@ -80,9 +82,25 @@ label{
     margin-right: 30px;
 }
 
+.filter-container{
+    width: 100%;
+  
+    display: flex;
+    justify-content: space-around;
+    background-color: #0d0d0d;
+    align-items: center;
+
+}
+.filter-container select{
+    background-color: #262626;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
 
 .maincontainr{
-    /* border: 2px solid white; */
+    
     width: 60%;
     margin-top: 100px;
 }
@@ -124,7 +142,7 @@ ul{
     margin:20px 10px ;
 }
 ul li{
-    /* display: flex; */
+   
     border: 3px solid #2c2c2c;
     background-color: #262626;
     padding: 10px 30px;
@@ -138,6 +156,8 @@ ul li{
     user-select: none;
     cursor: pointer;
     position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 
 
@@ -158,7 +178,7 @@ left: 8px;
 }
 
 ul li.checked{
-    /* color: #555; */
+    
     text-decoration: line-through;
 } 
 
@@ -194,13 +214,44 @@ ul li span:hover{
     font-size: 14px;
 }
 
+
+    
+
+
 .bottom{
     margin-bottom: 150px;   
 }
 
 
-/* 
+li.todo {
+ 
+    background-color: #c91010;
+}
 
-<i class="fa-solid fa-square-check"></i>
+li.inprogress {
+    
+    background-color: #c6d615;
+}
 
-<i class="fa-regular fa-square"></i>*/
+li.done {
+  
+    background-color: #06a406;
+}
+
+li.high {
+   
+    border: 2px solid red;
+}
+
+li.medium {
+   
+    border: 2px solid orange;
+}
+
+li.low {
+   
+    border: 2px solid green;
+}
+
+
+

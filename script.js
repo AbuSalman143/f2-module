@@ -1,66 +1,105 @@
+const inputbox = document.getElementById("inputbox");
+const listContainer = document.getElementById("list-container");
+const img = document.querySelector(".list>img");
+let count = 1;
+let listCount = document.querySelector("#listcount");
+let priority = document.getElementById("priority");
+let completedCount = document.getElementById("comlited");
+let date = document.getElementById("dueDate");
+let highPriority = document.getElementById("highpriotity");
+let countHigh = 1;
+let highPriorityCompleted = document.getElementById("highpriotitycomplited");
+let countHighCompleted = 1;
 
-const inputbox=document.getElementById("inputbox");
-const list_container=document.getElementById("list-container");
-const img=document.querySelector(".list>img");
-let count=1;
-let listcount=document.querySelector("#listcount");
-let periority=document.getElementById("priority");
-let comlited=document.getElementById("comlited");
-let date=document.getElementById("dueDate")
-let highpriotity=document.getElementById("highpriotity");
-let count_high=1;
-let highpriotitycomplited=document.getElementById("highpriotitycomplited");
-let count_highpriotity=1;
+let currentFilterStatus = "all";
+let currentFilterPriority = "all";
 
+function addTask() {
+    if (inputbox.value === "") {
+        alert("You must write something!");
+    } else {
+        img.style.display = "none";
+        listCount.innerText = `${count++}`;
+        let li = document.createElement("li");
+        li.innerHTML = `${inputbox.value} <span class="Date">Due Date ${date.value}</span>`;
+        let statusSelect = document.createElement("select");
+        statusSelect.innerHTML = `<option value="todo">To-do</option>
+                                  <option value="inprogress">In Progress</option>
+                                  <option value="done">Done</option>`;
+        statusSelect.addEventListener("change", function () {
+            updateStatus(this);
+        });
+        li.appendChild(statusSelect);
 
-let countcomplet=1;
-function addTask(){
-    if(inputbox.value===""){
-        alert("You must write somthing!");
-    }else{
+        let removeBtn = document.createElement("span");
+        removeBtn.innerHTML = `<i class="fa-solid fa-x" onclick="removeTask(this)"></i>`;
+        li.appendChild(removeBtn);
 
-        img.style.display="none";
-        listcount.innerText=`${count++}`;
-        let li=document.createElement("li");
-        li.innerHTML=inputbox.value;
-        list_container.appendChild(li);
-        let dueDate=document.createElement("span");
-        dueDate.className="Date";
-        dueDate.innerText=`Due Date ${date.value}`;
-        li.appendChild(dueDate);
-        let span=document.createElement("span");
-        span.innerHTML=`<i class="fa-solid fa-x"></i>`
-        li.appendChild(span);
-        if(periority.value==="high"){
-            highpriotity.innerText=`${count_high} of ${count-1}`;
+       
+        const selectedPriority = priority.value;
+        li.classList.add(selectedPriority);
+
+        listContainer.appendChild(li);
+
+        if (selectedPriority === "high") {
+            highPriority.innerText = `${countHigh++} of ${count - 1}`;
         }
-      
-        
     }
-    inputbox.value="";
+    inputbox.value = "";
+    updateCounts();
+    filterTasks();
     saveData();
 }
 
-list_container.addEventListener("click",function(e){
-    if(e.target.tagName==="LI"){
-        comlited.innerText=`${countcomplet++}`
-        e.target.classList.toggle("checked");
-        if(periority.value==="high" ){
-            highpriotitycomplited.innerText=`${count_highpriotity++}`;
-        }
-        saveData();
-        
-    }
-    else if(e.target.tagName==="SPAN"){
-        e.target.parentElement.remove();
-        saveData();
-    } else if(e.target.tagName==="I"){
-        e.target.parentElement.parentElement.remove();
-        saveData();
-    }
-})
-
-
-function saveData(){
-    localStorage.setItem("data",list_container.innerHTML);
+function updateStatus(selectElement) {
+    const selectedStatus = selectElement.value;
+    const listItem = selectElement.parentElement;
+    listItem.className = selectedStatus;
+    updateCounts();
+    filterTasks();
+    saveData();
 }
+
+function removeTask(iconElement) {
+    const listItem = iconElement.parentElement.parentElement;
+    listItem.remove();
+    updateCounts();
+    filterTasks();
+    saveData();
+}
+
+function updateCounts() {
+    completedCount.innerText = document.querySelectorAll(".done").length;
+    highPriorityCompleted.innerText = document.querySelectorAll(".done.high").length;
+}
+
+function filterTasks() {
+    currentFilterStatus = document.getElementById("filterStatus").value;
+    currentFilterPriority = document.getElementById("filterPriority").value;
+
+    const allTasks = document.querySelectorAll("#list-container li");
+
+    allTasks.forEach(task => {
+        const status = task.classList.contains(currentFilterStatus) || currentFilterStatus === "all";
+        const priority = task.classList.contains(currentFilterPriority) || currentFilterPriority === "all";
+
+        if (status && priority) {
+            task.style.display = "list-item";
+        } else {
+            task.style.display = "none";
+        }
+    });
+}
+
+document.getElementById("filterStatus").addEventListener("change", filterTasks);
+document.getElementById("filterPriority").addEventListener("change", filterTasks);
+
+listContainer.addEventListener("click", function (e) {
+    if (e.target.tagName === "I" && e.target.classList.contains("fa-x")) {
+        removeTask(e.target);
+    }
+});
+
+window.onload = function () {
+    updateCounts();
+};
